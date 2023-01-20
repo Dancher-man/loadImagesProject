@@ -17,7 +17,8 @@ docker-compose up -d --build
 ```
 ### Затем создайте суперюзера с помощью команды
 ```bash
-docker-compose exec web python manage.py createsuperuser
+docker-compose run web python manage.py createsuperuser
+
 ```
 
 ### Команда для запуска проекта, вместо(python manage.py runserver)
