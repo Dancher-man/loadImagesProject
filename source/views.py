@@ -44,7 +44,11 @@ class ImageFilterView(generics.ListAPIView, mixins.ListModelMixin):
         if 'geolocation' in self.request.query_params:
             queryset = Images.objects.filter(geolocation=self.request.query_params['geolocation'])
         elif 'created_at' in self.request.query_params:
-            created_at = datetime.datetime.strptime(self.request.query_params['created_at'], "%Y-%m-%d %H:%M:%S")
+            try:
+                created_at = datetime.datetime.strptime(self.request.query_params['created_at'], "%Y-%m-%d %H:%M:%S")
+            except Exception as e:
+                print(e)
+                created_at = datetime.datetime.strptime(self.request.query_params['created_at'], "%Y-%m-%d").date()
             queryset = Images.objects.filter(created_at__startswith=created_at)
         elif 'persons_names' in self.request.query_params:
             queryset = Images.objects.filter(persons_names__name=self.request.query_params['persons_names'])
